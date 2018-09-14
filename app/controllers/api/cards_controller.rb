@@ -25,7 +25,7 @@ class Api::CardsController < ApplicationController
     
       private
     
-      def item_params
+      def card_params
         params.require(:card).permit(:front, :back)
       end
 end

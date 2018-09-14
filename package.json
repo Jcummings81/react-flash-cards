@@ -1,0 +1,23 @@
+{
+  "name": "react-flash-cards",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jcummings81/react-flash-cards.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jcummings81/react-flash-cards/issues"
+  },
+  "homepage": "https://github.com/Jcummings81/react-flash-cards#readme"
+}
