@@ -3,8 +3,12 @@ import React from 'react';
 class CardForm extends React.Component {
   state = { front: '', back: '' }
 
-  handleChange = (e) => {
-    this.setState({ front: e.target.value, back: e.target.value });
+  handleFront = (e) => {
+    this.setState({ front: e.target.value });
+  }
+
+  handleBack = (e) => {
+    this.setState({ back: e.target.value });
   }
 
   handleSubmit = (e) => {
@@ -17,14 +21,27 @@ class CardForm extends React.Component {
 
   render() {
     return (
+      <div>
       <form onSubmit={this.handleSubmit}>
+    
         <input
-          placeholder="Add A Card"
+          placeholder="Add Front"
           required
           value={this.state.front}
-          onChange={this.handleChange}
+          onChange={this.handleFront}
         />
+     
+
       </form>
+      <form onSubmit={this.handleSubmit}>
+         <input
+         placeholder="Add Back"
+         required
+         value={this.state.back}
+         onChange={this.handleBack}
+       />
+      </form>
+         </div>
     )
   }
 }

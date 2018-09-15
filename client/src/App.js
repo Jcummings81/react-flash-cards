@@ -12,8 +12,8 @@ class App extends Component {
         .then( cards => this.setState({ cards: cards }) )  
       }
 
-  addCard = (front) => {
-    const card = { front }
+  addCard = (front, back) => {
+    const card = { front, back }
     fetch('/api/cards', {
       method: 'POST',
       headers: {
