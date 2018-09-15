@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
 import CardForm from './components/CardForm'
-import CardList from './components/CardList'
+import Card from './components/Card'
 
 class App extends Component {
 
-  state = { cars: [] }
+  state = { cards: [] }
 
     componentDidMount() {
       fetch('/api/cards')
         .then( res => res.json() )
-        .then( cards => this.setState({ cards }) )  
+        .then( cards => this.setState({ cards: cards }) )  
       }
 
-  addCard = (front, back) => {
-    //TODO make api call to rails server to add item
-  const { cards } = this.state;
-  //Generate random id
-  const id = Math.floor(( 1 + Math.random()) * 0x1000).toString()
-  this.setState({ cards: [...cards, { id, front, back }] });
-
+  addCard = (front) => {
+    const card = { front }
+    fetch('/api/cards', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(card)
+    }).then(res => res.json())
+      .then(card => {
+        const { cards } = this.state;
+        this.setState({ cards: [...cards, card] })
+      })
   }
 
   updateCard = (id) => {
@@ -31,7 +38,7 @@ class App extends Component {
           return t;
       });
   
-      this.setState({ cards });
+      this.setState({ cards: cards });
     })
   }
 
@@ -43,20 +50,31 @@ class App extends Component {
  this.setState({ cards: cards.filter( t => t.id !== id ) })
     })
   }
-
+  cardList = () => {
+    return this.state.cards.map(card => {
+      return (
+        <div className="row">
+          <Card
+            {...card}
+            updateCard={this.updateCard}
+            deleteCard={this.deleteCard}
+          />
+        </div>
+      )
+    })
+  }
 
   render() {
     return (
-      <div className="container" >
-         <CardForm addCard={this.addCard} />
-        <CardList
-          cards={this.state.cards}
-          updateCard={this.updateCard}
-          deleteCard={this.deleteCard}
-        />
+      <div>
+        <div>
+          <CardForm addCard={this.addCard} />
+          {this.cardList()}
+        </div>
       </div>
     );
   }
+ 
 }
 
 export default App;
